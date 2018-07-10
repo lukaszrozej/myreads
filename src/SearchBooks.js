@@ -20,20 +20,32 @@ class SearchBooks extends Component {
     });
   }
 
+  putOnShelves(foundBooks, shelvedBooks) {
+    const putOnShelf = book =>
+      Object.assign(
+        {},
+        book,
+        { shelf: shelvedBooks.find(shelvedBook => shelvedBook.id === book.id) || '' }
+      )
+    return foundBooks.map(putOnShelf)
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if (this.state.query === prevState.query) return;
     
     if (this.state.query === '') {
       this.setState(() => {
-        console.log(this.state)
         return { books: [] };
       });
     } else {
       BooksAPI.search(this.state.query)
         .then(books => 
           this.setState(() => {
-            console.log(this.state)
-            return { books: Array.isArray(books) ? books : [] }
+            return {
+              books: Array.isArray(books)
+                ? this.putOnShelves(books, this.props.shelvedBooks)
+                : []
+            }
           })
         )
     }
