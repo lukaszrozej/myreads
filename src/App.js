@@ -25,6 +25,12 @@ class BooksApp extends React.Component {
     BooksAPI.getAll().then(books => this.setState({ books }));
   }
 
+  // Necessary to make sure all books are displayed
+  // after coming back from search page
+  componentDidUpdate(){
+    BooksAPI.getAll().then(books => this.setState({ books }));
+  }
+
   render() {
     return (
       <div className="app">
