@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Book = ({book, update}) => (
+const Book = ({book, updateShelf}) => (
   <div className="book">
     <div className="book-top">
       <div className="book-cover" style={{
@@ -14,7 +14,7 @@ const Book = ({book, update}) => (
       }}></div>
       <div className="book-shelf-changer">
         <select
-          onChange={event => update(book, event.target.value)}
+          onChange={event => updateShelf(book, event.target.value)}
           value={book.shelf ? book.shelf : 'none'}
         >
           <option value="move" disabled>Move to...</option>

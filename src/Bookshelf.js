@@ -1,7 +1,7 @@
 import React from 'react';
 import BooksGrid from './BooksGrid.js'
 
-const Bookshelf = ({books, shelf, update}) => (
+const Bookshelf = ({books, shelf, updateShelf}) => (
   <div className="bookshelf">
     <h2 className="bookshelf-title">{
       shelf
@@ -12,7 +12,7 @@ const Bookshelf = ({books, shelf, update}) => (
     <div className="bookshelf-books">
       <BooksGrid
         books={books.filter(book => book.shelf === shelf)}
-        update={update}
+        updateShelf={updateShelf}
       />
     </div>
   </div>
