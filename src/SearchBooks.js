@@ -9,6 +9,17 @@ class SearchBooks extends Component {
     query: ''
   }
 
+  update(bookToUpdate, shelf) {
+    BooksAPI.update(bookToUpdate, shelf).then(() => {
+      this.setState({
+        books: this.state.books.map(book =>
+          book.id === bookToUpdate.id ? Object.assign({}, book, { shelf: shelf })
+            : book
+        )
+      })
+    });
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if (this.state.query === prevState.query) return;
     
@@ -46,7 +57,10 @@ class SearchBooks extends Component {
           </div>
         </div>
         <div className="search-books-results">
-          <BooksGrid books={this.state.books} update={this.props.update}/>
+          <BooksGrid
+            books={this.state.books}
+            update={(book, shelf) => this.update(book, shelf)}
+          />
         </div>
       </div>
     )
