@@ -24,11 +24,17 @@ class SearchBooks extends Component {
     if (this.state.query === prevState.query) return;
     
     if (this.state.query === '') {
-      this.setState({ books: [] });
+      this.setState(() => {
+        console.log(this.state)
+        return { books: [] };
+      });
     } else {
       BooksAPI.search(this.state.query)
         .then(books => 
-          this.setState({ books: Array.isArray(books) ? books : [] })
+          this.setState(() => {
+            console.log(this.state)
+            return { books: Array.isArray(books) ? books : [] }
+          })
         )
     }
   }
@@ -58,7 +64,7 @@ class SearchBooks extends Component {
         </div>
         <div className="search-books-results">
           <BooksGrid
-            books={this.state.books}
+            books={this.state.query !== '' ? this.state.books : []}
             update={(book, shelf) => this.update(book, shelf)}
           />
         </div>
