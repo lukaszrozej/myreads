@@ -11,7 +11,7 @@ const Book = ({book, update}) => (
       <div className="book-shelf-changer">
         <select
           onChange={event => update(book, event.target.value)}
-          value={book.shelf}
+          value={book.shelf ? book.shelf : 'none'}
         >
           <option value="move" disabled>Move to...</option>
           <option value="currentlyReading">Currently Reading</option>
@@ -22,7 +22,10 @@ const Book = ({book, update}) => (
       </div>
     </div>
     <div className="book-title">{book.title}</div>
-    <div className="book-authors">{book.authors.join(', ')}</div>
+    {book.authors
+      ? <div className="book-authors">{book.authors.join(', ')}</div>
+      : ''
+    }
   </div>
 );
 

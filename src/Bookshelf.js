@@ -1,5 +1,5 @@
 import React from 'react';
-import Book from './Book.js'
+import BooksGrid from './BooksGrid.js'
 
 const Bookshelf = ({books, shelf, update}) => (
   <div className="bookshelf">
@@ -10,12 +10,10 @@ const Bookshelf = ({books, shelf, update}) => (
         // inspired by https://stackoverflow.com/questions/4149276/javascript-camelcase-to-regular-form
     }</h2>
     <div className="bookshelf-books">
-      <ol className="books-grid">
-        {books
-          .filter(book => book.shelf === shelf)
-          .map(book => (<li key={book.id}><Book book={book} update={update}/></li>))
-        }
-      </ol>
+      <BooksGrid
+        books={books.filter(book => book.shelf === shelf)}
+        update={update}
+      />
     </div>
   </div>
 
