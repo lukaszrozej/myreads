@@ -1,12 +1,23 @@
 import React from 'react'
 import { Route, Link } from 'react-router-dom'
-import Bookshelf from './Bookshelf.js'
+import ListBooks from './ListBooks.js'
  import * as BooksAPI from './BooksAPI'
 import './App.css'
 
 class BooksApp extends React.Component {
   state = {
     books: []
+  }
+
+  update(bookToUpdate, shelf) {
+    BooksAPI.update(bookToUpdate, shelf).then(() => {
+      this.setState({
+        books: this.state.books.map(book => 
+          book.id === bookToUpdate.id ? Object.assign({}, book, {shelf: shelf})
+                                      : book
+        )
+      })
+    });
   }
 
   componentDidMount() {
@@ -39,21 +50,10 @@ class BooksApp extends React.Component {
           </div>
         )}/>
         <Route exact path="/" render={() => (
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-            <div className="list-books-content">
-              <div>
-                <Bookshelf books={this.state.books} shelf="currentlyReading"/>
-                <Bookshelf books={this.state.books} shelf="wantToRead"/>
-                <Bookshelf books={this.state.books} shelf="read"/>
-              </div>
-            </div>
-            <div className="open-search">
-              <Link to="/search">Add a book</Link>
-            </div>
-          </div>
+          <ListBooks
+            books={this.state.books}
+            update={(book, shelf) => this.update(book, shelf)}
+          />
         )}/>
       </div>
     )

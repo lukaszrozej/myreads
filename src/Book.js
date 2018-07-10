@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Book = ({book}) => (
+const Book = ({book, update}) => (
   <div className="book">
     <div className="book-top">
       <div className="book-cover" style={{
@@ -9,7 +9,10 @@ const Book = ({book}) => (
         backgroundImage: `url(${book.imageLinks.thumbnail})` 
       }}></div>
       <div className="book-shelf-changer">
-        <select>
+        <select
+          onChange={event => update(book, event.target.value)}
+          value={book.shelf}
+        >
           <option value="move" disabled>Move to...</option>
           <option value="currentlyReading">Currently Reading</option>
           <option value="wantToRead">Want to Read</option>
