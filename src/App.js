@@ -43,6 +43,9 @@ class BooksApp extends React.Component {
 
     BooksAPI.search(query).then(response =>
       this.setState({
+        // Checking if query is empty is necessary
+        // Otherwise response might arrive after search input is cleared
+        // and results will be displayed although they shouldn't
         foundBooks: response.error || this.state.query.trim() === ''
                     ? []
                     : response.map(putOnShelf)
