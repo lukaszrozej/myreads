@@ -27,26 +27,30 @@ class BooksApp extends React.Component {
     });
   }
 
-  updateQuery(query) {
+  searchForBooks() {
+    if (this.state.query === '') {
+      this.setState({ foundBooks: [] });
+      return;
+    }
+
     const putOnShelf = book =>
       Object.assign(
         {},
         book,
         this.state.shelvedBooks.find(shelvedBook => shelvedBook.id === book.id)
       )
+
+    BooksAPI.search(this.state.query).then(response =>
+      this.setState({
+        foundBooks: response.error ? [] : response.map(putOnShelf)
+      })
+    )
+  }
+
+  updateQuery(query) {
     this.setState(
       { query },
-      () => {
-        if (query === '') {
-          this.setState({foundBooks: []});
-          return;
-        }
-        BooksAPI.search(query).then(response =>
-          this.setState({
-            foundBooks: response.error ? [] : response.map(putOnShelf)
-          })
-        )
-      }
+      () => { this.searchForBooks() }
     )
   }
 
