@@ -51,6 +51,9 @@ class BooksApp extends React.Component {
     this.setState(
       { query },
       () => { this.searchForBooks() }
+      // It also worked without wrapping in arrow function
+      // just passing this.searchForBooks as second parameter
+      // How does it bind 'this' to searchForBooks ?
     )
   }
 
