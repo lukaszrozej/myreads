@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
-import Bookshelf from './Bookshelf.js'
+import { Link } from 'react-router-dom';
+import Bookshelf from './Bookshelf.js';
 
 const ListBooks = ({books, updateShelf}) => (
   <div className="list-books">

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import BooksGrid from './BooksGrid';
 
 const SearchBooks = ({shelvedBooks, foundBooks, query, updateShelf, updateQuery}) => (
@@ -30,6 +30,6 @@ const SearchBooks = ({shelvedBooks, foundBooks, query, updateShelf, updateQuery}
       />
     </div>
   </div>
-)
+);
 
 export default SearchBooks;

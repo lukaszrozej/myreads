@@ -1,9 +1,9 @@
-import React from 'react'
-import { Route } from 'react-router-dom'
-import SearchBooks from './SearchBooks.js'
-import ListBooks from './ListBooks.js'
-import * as BooksAPI from './BooksAPI'
-import './App.css'
+import React from 'react';
+import { Route } from 'react-router-dom';
+import SearchBooks from './SearchBooks.js';
+import ListBooks from './ListBooks.js';
+import * as BooksAPI from './BooksAPI';
+import './App.css';
 
 class BooksApp extends React.Component {
   state = {
@@ -40,13 +40,13 @@ class BooksApp extends React.Component {
         {},
         book,
         this.state.shelvedBooks.find(shelvedBook => shelvedBook.id === book.id)
-      )
+      );
 
     BooksAPI.search(query).then(response =>
       this.setState({
         foundBooks: response.error ? [] : response.map(putOnShelf)
       })
-    )
+    );
   }
 
   updateQuery(query) {
@@ -56,7 +56,7 @@ class BooksApp extends React.Component {
       // It also worked without wrapping in arrow function
       // just passing this.searchForBooks as second parameter
       // How does it bind 'this' to searchForBooks ?
-    )
+    );
   }
 
   componentDidMount() {
@@ -82,8 +82,8 @@ class BooksApp extends React.Component {
           />
         )}/>
       </div>
-    )
+    );
   }
 }
 
-export default BooksApp
+export default BooksApp;
