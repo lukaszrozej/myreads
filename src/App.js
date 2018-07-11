@@ -28,7 +28,9 @@ class BooksApp extends React.Component {
   }
 
   searchForBooks() {
-    if (this.state.query === '') {
+    const query = this.state.query.trim();
+
+    if (query === '') {
       this.setState({ foundBooks: [] });
       return;
     }
@@ -40,7 +42,7 @@ class BooksApp extends React.Component {
         this.state.shelvedBooks.find(shelvedBook => shelvedBook.id === book.id)
       )
 
-    BooksAPI.search(this.state.query).then(response =>
+    BooksAPI.search(query).then(response =>
       this.setState({
         foundBooks: response.error ? [] : response.map(putOnShelf)
       })
