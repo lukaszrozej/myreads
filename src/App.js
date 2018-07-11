@@ -12,17 +12,6 @@ class BooksApp extends React.Component {
     query: '',
   }
 
-  putOnShelves(foundBooks, shelvedBooks) {
-    const putOnShelf = book =>
-      Object.assign(
-        {},
-        book,
-        { shelf: shelvedBooks.find(shelvedBook => shelvedBook.id === book.id) || '' }
-      )
-    return foundBooks.map(putOnShelf)
-  }
-
-
   updateShelf(bookToUpdate, shelf) {
     BooksAPI.update(bookToUpdate, shelf).then(() => {
       this.setState({
@@ -48,7 +37,10 @@ class BooksApp extends React.Component {
     this.setState(
       { query },
       () => {
-        if (query === '') return;
+        if (query === '') {
+          this.setState({foundBooks: []});
+          return;
+        }
         BooksAPI.search(query).then(response =>
           this.setState({
             foundBooks: response.error ? [] : response.map(putOnShelf)
@@ -61,14 +53,6 @@ class BooksApp extends React.Component {
   componentDidMount() {
     BooksAPI.getAll().then(books => this.setState({ shelvedBooks: books }));
   }
-
-  // // Necessary to make sure all books are displayed
-  // // after coming back from search page
-  // componentDidUpdate(prevProps, prevState){
-  //   if (prevState === this.state) return;
-  //   console.log('app update')
-  //   BooksAPI.getAll().then(books => this.setState({ books }));
-  // }
 
   render() {
     return (
