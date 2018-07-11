@@ -25,7 +25,8 @@ const SearchBooks = ({shelvedBooks, foundBooks, query, updateShelf, updateQuery}
     </div>
     <div className="search-books-results">
       <BooksGrid
-        books={query !== '' ? foundBooks : []}
+        // books={query !== '' ? foundBooks : []}
+        books={foundBooks}
         updateShelf={updateShelf}
       />
     </div>

@@ -29,7 +29,6 @@ class BooksApp extends React.Component {
 
   searchForBooks() {
     const query = this.state.query.trim();
-
     if (query === '') {
       this.setState({ foundBooks: [] });
       return;
@@ -44,7 +43,9 @@ class BooksApp extends React.Component {
 
     BooksAPI.search(query).then(response =>
       this.setState({
-        foundBooks: response.error ? [] : response.map(putOnShelf)
+        foundBooks: response.error || this.state.query.trim() === ''
+                    ? []
+                    : response.map(putOnShelf)
       })
     );
   }
