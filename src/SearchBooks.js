@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import BooksGrid from './BooksGrid';
 
-const SearchBooks = ({shelvedBooks, foundBooks, query, updateShelf, updateQuery}) => (
+const SearchBooks = ({foundBooks, query, updateShelf, updateQuery}) => (
   <div className="search-books">
     <div className="search-books-bar">
       <Link to="/" className="close-search">Close</Link>
