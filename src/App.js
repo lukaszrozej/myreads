@@ -14,20 +14,35 @@ class BooksApp extends React.Component {
 
   updateShelf(bookToUpdate, shelf) {
     BooksAPI.update(bookToUpdate, shelf).then(() => {
+
+      // Added because of requirement in the review
+      bookToUpdate.shelf = shelf;
       this.setState(state => ({
         shelvedBooks: state.shelvedBooks
                       .filter(book => book.id !== bookToUpdate.id)
-                      .concat(Object.assign({}, bookToUpdate, {shelf: shelf})),
-        foundBooks: state.foundBooks
-                    .map(book => book.id === bookToUpdate.id
-                                ? Object.assign({}, book, { shelf: shelf })
-                                : book
-                    )
+                      // Changed because of requirement in the review
+                      .concat(bookToUpdate),
+                      // Below is the previous version which didn't cause any bugs
+                      // on my machine
+                      // (Chrome 66.0.3359.170 or Firefox 61.0.1 on Ubuntu 16.04.3 LTS)
+                      // .concat(Object.assign({}, bookToUpdate, { shelf: shelf })),
+
+        // According to the reviewer this update is unnecessary
+        // And his right, but I don't understand why
+        // If I change shelf of a book on the search page
+        // React devtools show it's shelf changing in the foundBooks array
+        // How come? foundBooks array is not updated!
+        // foundBooks: state.foundBooks
+        //             .map(book => book.id === bookToUpdate.id
+        //                         ? Object.assign({}, book, { shelf: shelf })
+        //                         : book
+        //             )
       }))
     });
   }
 
   searchForBooks() {
+    console.log('search')
     const query = this.state.query.trim();
     if (query === '') {
       this.setState({ foundBooks: [] });
